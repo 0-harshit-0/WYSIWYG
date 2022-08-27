@@ -1,0 +1,40 @@
+.top {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr 0.3fr 0.05fr 0.05fr;
+  place-items: center;
+
+  margin-inline: 10px;
+  color: var(--grey);
+}
+
+.menuIconBtn {
+}
+
+.topSearch {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  padding-inline: 7px;
+  width: 100%;
+  font-size: .8rem;
+}
+.topSearch:focus {
+  outline: 1px solid;
+}
+
+.inviteBtn {
+  display: flex;
+  align-items: center;
+
+  color: inherit;
+  font-size: .7rem;
+  font-weight: 500;
+}
+.inviteBtn > svg {
+  margin-inline-end: 5px;
+}
+
+.userIconBtn > img {
+  border-radius: 100%;
+}

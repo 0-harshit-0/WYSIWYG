@@ -1,0 +1,76 @@
+:root {
+  --b: rgba(50, 50, 50, 1);
+  --grey: rgba(150, 150, 150, 1);
+}
+::selection {
+  color: white;
+  background: grey;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+html, body {
+  font-size: clamp(1rem, 0.5rem + 1vw, 1.5rem);
+  height: 100vh;
+}
+body {
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',"Century Gothic", "Verdana", Futura,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: rgba(0, 0, 0, 0.1);
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-inline-size: 100%;
+  object-fit: cover;
+  block-size: auto;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+#root, #__next {
+  isolation: isolate;
+  height: 100%;
+}
+canvas{
+  -webkit-transform3d: translate(0,0,0);
+    -moz-transform3d: translate(0,0,0);
+    transform3d: translate(0,0,0);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* ----------------------------------- reset --------------------------------------------- */
+
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.container {
+  display: grid;
+  grid-template-rows: .1fr 1fr;
+
+  height: 100%;
+}
+
+
