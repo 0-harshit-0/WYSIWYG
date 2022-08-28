@@ -1,6 +1,7 @@
 :root {
   --b: rgba(50, 50, 50, 1);
-  --grey: rgba(150, 150, 150, 1);
+  --grey: rgba(120, 120, 120, 1);
+  --bg: rgba(230, 230, 230, 1);
 }
 ::selection {
   color: white;
@@ -26,7 +27,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--bg);
 }
 img, picture, video, canvas, svg {
   display: block;
@@ -71,6 +72,7 @@ button {
   grid-template-rows: .1fr 1fr;
 
   height: 100%;
+  padding-block: 10px;
 }
 
 

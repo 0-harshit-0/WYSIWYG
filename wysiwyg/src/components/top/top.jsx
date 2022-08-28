@@ -1,19 +1,21 @@
+import { useState } from 'react';
 import './top.css';
 
-function Top() {
-  return (
-    <div className="top">
-      <button className="menuIconBtn">
-        <svg viewBox="0 0 100 80" width="20" height="20" fill="rgba(150, 150, 150, 1)">
+
+function TopMenu(props) {
+  return(
+    <section className="topMenu">
+      <button onClick={()=> {props.setDrawerTop(props.drawerTop > 1 ? -5 : 80)}} className="menuIconBtn hovers">
+        <svg viewBox="0 0 100 80" width="20" height="20" fill="currentColor">
           <rect width="100" height="15"></rect>
           <rect y="30" width="100" height="15"></rect>
           <rect y="60" width="100" height="15"></rect>
         </svg>
       </button>
 
-      <input className="topSearch" type="search" name="search" placeholder="search the document" />
+      <input className="topSearch hovers" type="search" name="search" placeholder="search the document" />
 
-      <button className="inviteBtn">
+      <button className="inviteBtn hovers">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-plus-fill" viewBox="0 0 16 16">
           <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
           <path fillRule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
@@ -21,15 +23,71 @@ function Top() {
         INVITE TEAM MEMBER
       </button>
 
-      <button className="notiIconBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgba(150, 150, 150, 1)" className="bi bi-bell" viewBox="0 0 16 16">
-          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+      <button className="notiIconBtn hovers">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bell-fill" viewBox="0 0 16 16">
+          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
         </svg>
       </button>
       
-      <button className="userIconBtn">
-        <img src={require('./unnamed.png')} loading="lazy" decoding="sync" />
+      <button className="userIconBtn hover">
+        <img src={require('./unnamed.png')} alt="user" loading="lazy" decoding="sync" />
       </button>
+    </section>
+  );
+}
+
+function TopDrawerBtns(props) {
+  let c = props.active ? "drawerBtnActive" : "";
+  let l = [];
+
+  return (
+    <button onClick=
+    {
+      () => {
+        props.list.forEach(z => {
+          if(z.name === props.name) {
+            z.active = true;
+          }else {
+            z.active = false;
+          }
+          l.push(z);
+        });
+        props.func(l);
+      }
+    } className={c+" drawerBtn"}>{props.name}</button>
+  );
+}
+function TopDrawer(props) {
+  const [drawerList, setDrawerList] = useState(
+    [
+      {name: 'All', active: true},
+      {name: 'Board', active: false},
+      {name: 'Graph', active: false},
+      {name: 'Recent', active: false},
+    ]
+  );
+
+  return(
+    <section className="topDrawer" style={{top: props.drawerTop+'%'}}>
+      {
+        drawerList.map(x => {return <TopDrawerBtns key={x.name} name={x.name} active={x.active} list={drawerList} func={setDrawerList} />})
+      }
+      <button className="drawerOptBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+          <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+        </svg>
+      </button>
+    </section>
+  );
+}
+
+function Top() {
+  const [drawerTop, setDrawerTop] = useState(-5);
+
+  return (
+    <div className="top">
+      <TopMenu drawerTop={drawerTop} setDrawerTop={setDrawerTop} />
+      <TopDrawer drawerTop={drawerTop} />
     </div>
   );
 }
