@@ -1,96 +1,46 @@
-.top {
-  position: relative;
+.left {
+  background: var(--dbg);
   color: var(--grey);
+  border-radius: 5px;
+  padding-inline: 15px;
+
+  display: grid;
+  grid-template-rows: .1fr .06fr 1fr;
+  align-items: start;
+  overflow: auto;
+  resize: horizontal;
 }
 
-.topMenu {
-  z-index: 2;
-  position: relative;
+
+.leftOptions {
+  grid-row: 2 / 3;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding-inline: 15px;
-  background: var(--bg);
 }
-.hovers {
+.lefthovers {
   transition: 0.3s ease;
-  margin-inline: 10px;
+  color: inherit;
 }
-.hovers:hover {
+.lefthovers:hover {
   color: black;
 }
+/*https://iconmonstr.com/arrow-31-svg/*/
 
-.menuIconBtn {
-  color: inherit;
-}
-
-.topSearch {
+.leftname {
   flex: 1;
 
+  font-size: .7rem;
   background: transparent;
-  border: none;
   outline: none;
-  color: inherit;
-  padding-inline: 7px;
-
-  font-size: .8rem;
-}
-.topSearch:focus {
-  outline: 1px solid;
-}
-
-.inviteBtn {
-  display: flex;
-  align-items: center;
-
-  color: inherit;
-  font-size: .7rem;
-  font-weight: 500;
-}
-.inviteBtn > svg {
-  margin-inline-end: 5px;
-}
-
-.notiIconBtn {
-  color: inherit;
-}
-
-.userIconBtn {
-}
-.userIconBtn > img {
-  border-radius: 100%;
+  border: none;
 }
 
 
-/* --------drawer--------- */
-.topDrawer {
-  z-index: 1;
-  position: absolute;
+.leftcontainerArea {
+  grid-row: 3 / 4;
 
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-  margin-block-start: 10px;
-  padding-inline: 15px;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-}
-.drawerBtn {
-  font-size: .7rem;
-  font-weight: bold;
-  color: inherit;
-  padding-inline: 15px;
-  border-bottom: solid transparent;
-}
-.drawerBtnActive {
-  border-bottom: solid;
-}
-.drawerBtn:hover {
-  border-bottom: solid;
-}
-
-.drawerOptBtn {
-  color: var(--grey);
+  border: solid;
+  height: 100%;
 }

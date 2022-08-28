@@ -1,4 +1,7 @@
 .top {
+  z-index: 3;
+
+  grid-column: 1 / stretch 3;
   position: relative;
   color: var(--grey);
 }
@@ -13,17 +16,14 @@
 
   padding-inline: 15px;
   background: var(--bg);
+  height: 100%;
 }
-.hovers {
+.tophovers {
   transition: 0.3s ease;
-  margin-inline: 10px;
-}
-.hovers:hover {
-  color: black;
-}
-
-.menuIconBtn {
   color: inherit;
+}
+.tophovers:hover {
+  color: black;
 }
 
 .topSearch {
@@ -32,34 +32,28 @@
   background: transparent;
   border: none;
   outline: none;
-  color: inherit;
   padding-inline: 7px;
-
+  border-bottom: solid 1px transparent;
   font-size: .8rem;
+  margin-inline: 10px;
 }
 .topSearch:focus {
-  outline: 1px solid;
+  border-bottom: solid 1px;
 }
 
-.inviteBtn {
+.topinviteBtn {
   display: flex;
   align-items: center;
 
-  color: inherit;
+  margin-inline: 10px;
   font-size: .7rem;
   font-weight: 500;
 }
-.inviteBtn > svg {
+.topinviteBtn > svg {
   margin-inline-end: 5px;
 }
 
-.notiIconBtn {
-  color: inherit;
-}
-
-.userIconBtn {
-}
-.userIconBtn > img {
+.topuserIconBtn > img {
   border-radius: 100%;
 }
 
@@ -73,24 +67,26 @@
   align-items: center;
 
   width: 100%;
+  background: var(--bg);
   margin-block-start: 10px;
   padding-inline: 15px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
 }
-.drawerBtn {
+.topdrawerBtn {
   font-size: .7rem;
   font-weight: bold;
   color: inherit;
   padding-inline: 15px;
   border-bottom: solid transparent;
 }
-.drawerBtnActive {
+.topdrawerBtnActive {
   border-bottom: solid;
 }
-.drawerBtn:hover {
+.topdrawerBtn:hover {
   border-bottom: solid;
 }
 
-.drawerOptBtn {
+.topdrawerOptBtn {
   color: var(--grey);
 }

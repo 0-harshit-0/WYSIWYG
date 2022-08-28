@@ -1,7 +1,8 @@
 :root {
   --b: rgba(50, 50, 50, 1);
   --grey: rgba(120, 120, 120, 1);
-  --bg: rgba(230, 230, 230, 1);
+  --bg: rgba(240, 240, 240, 1);
+  --dbg: rgba(230, 230, 230, 1);
 }
 ::selection {
   color: white;
@@ -70,9 +71,9 @@ button {
 .container {
   display: grid;
   grid-template-rows: .1fr 1fr;
+  grid-template-columns: .4fr 1fr;
 
   height: 100%;
-  padding-block: 10px;
 }
 
 
