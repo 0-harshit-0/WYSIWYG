@@ -1,12 +1,12 @@
 import './App.css';
 import Top from './components/top/top.jsx';
-import Left from './components/left/left.jsx';
+import Mid from './components/mid/mid.jsx';
 
 function App() {
   return (
     <div className="container">
       <Top />
-      <Left />
+      <Mid />
     </div>
   );
 }

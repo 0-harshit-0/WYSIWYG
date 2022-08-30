@@ -1,0 +1,92 @@
+.mid {
+  position: relative;
+
+  color: var(--grey);
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.left {
+  float: left;
+  position: relative;
+
+  display: grid;
+  grid-template-rows: .1fr .06fr 1fr;
+  align-items: start;
+
+  background: var(--dbg);
+  border-radius: 5px;
+  padding-inline: 15px;
+  width: 30%;
+  height: 100%;
+  transition: 0.3s ease;
+}
+
+.leftOptions {
+  grid-row: 2 / 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lefthovers {
+  transition: 0.3s ease;
+  color: inherit;
+}
+.lefthovers:hover {
+  color: black;
+}
+/*https://iconmonstr.com/arrow-31-svg/*/
+.leftname {
+  flex: 1;
+
+  font-size: .7rem;
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.leftcontainerArea {
+  grid-row: 3 / 4;
+
+  border: solid;
+  height: 100%;
+}
+
+
+.right {
+  float: right;
+  position: relative;
+
+  width: 70%;
+  height: 100%;
+  padding-block: 2%;
+  padding-inline: 4%;
+  overflow-y: scroll;
+  transition: 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #ccc;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+h1, h2 {
+  font-weight: lighter;
+  color: var(--b);
+}

@@ -5,11 +5,11 @@ import './top.css';
 function TopMenu(props) {
   return(
     <section className="topMenu">
-      <button onClick={()=> {props.setDrawerTop(props.drawerTop > 35 ? 35 : 80)}} className="menuIconBtn tophovers">
+      <button onClick={()=> {props.setDrawerTop(props.drawerTop > 30 ? 30 : 80)}} className="menuIconBtn tophovers">
         <svg viewBox="0 0 100 80" width="20" height="20" fill="currentColor">
-          <rect y="20" width="100" height="10"></rect>
-          <rect y="45" width="100" height="10"></rect>
-          <rect y="70" width="100" height="10"></rect>
+          <rect y="10" width="100" height="10"></rect>
+          <rect y="35" width="100" height="10"></rect>
+          <rect y="60" width="100" height="10"></rect>
         </svg>
       </button>
 
@@ -82,7 +82,7 @@ function TopDrawer(props) {
 }
 
 function Top() {
-  const [drawerTop, setDrawerTop] = useState(35);
+  const [drawerTop, setDrawerTop] = useState(30);
 
   return (
     <div className="top">

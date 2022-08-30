@@ -1,7 +1,6 @@
 .top {
   z-index: 3;
-
-  grid-column: 1 / stretch 3;
+  
   position: relative;
   color: var(--grey);
 }
@@ -66,6 +65,7 @@
   display: flex;
   align-items: center;
 
+  height: 50%;
   width: 100%;
   background: var(--bg);
   margin-block-start: 10px;
