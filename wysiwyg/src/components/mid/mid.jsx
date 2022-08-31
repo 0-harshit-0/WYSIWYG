@@ -1,47 +1,85 @@
 import { useState, useEffect } from 'react';
 import './mid.css';
-import '../../DS/ug.js';
+import {Folder} from '../../DS/ug.js';
 
 
 function Options(props) {
   const [rotate, setRotate] = useState(180);
+  let fn = null;
 
   return(
     <section className="leftOptions">
-      <input className="leftname lefthovers" type="text" defaultValue="Dfin" />
+      <input id="leftname" onChange={(e)=> {fn = (e.target.value);}} className="leftname lefthovers" type="text" defaultValue="" placeholder="folder name here" />
 
-      <button className="lefthovers" onClick={
+      <button className="lefthovers addfolder" onClick={
         () => {
+          let tc = [...props.conts];
+          tc.push(new Folder(tc.length, fn??"collection"));
+          document.querySelector("#leftname").value = "";
+          props.setConts(tc);
         }
       }>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
-          <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="11" height="11" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
       </button>
 
-      <button onClick={()=> {
-        props.setStyleL(props.styleL === 0 ? -27 : 0);
+      <button className="lefthovers slider" onClick={()=> {
+        props.setStyleL(props.styleL === 0 ? -27.5 : 0);
         props.setStyleR(props.styleR === 0 ? -15 : 0);
         setRotate(rotate === 180 ? 0 : 180);
-      }} className="lefthovers">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="11" viewBox="0 0 24 24" fill="currentColor" style={{transform: `rotate(${rotate}deg)`}} className="bi">
+      }}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style={{transform: `rotate(${rotate}deg)`}} className="bi">
           <path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg>
       </button>
     </section>
   );
 }
 
-function Containers(props) {
+
+
+function ContainersItems() {}
+function ContainersHead(props) {
+  const [rotate, setRotate] = useState(0);
+
   return (
-    <section>
-      <span>collection {props.no}</span>
+    <section className="containershead">
+      <button onClick={
+        ()=> {
+          setRotate(rotate === 180 ? 0 : 180);
+        }
+      }>
+        <svg style={{transform: `rotate(${rotate}deg)`}} className="bi" width="6" height="6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M23.245 4l-11.245 14.374-11.219-14.374-.781.619 12 15.381 12-15.391-.755-.609z"/></svg>
+      </button>
+
+      <strong>{props.name}</strong>
+
+      <button className="lefthovers addfolder" onClick={
+        () => {
+          let ti = props.id+.1;
+          let tc = [...props.conts];
+          for (var i = 0; i < tc.length; i++) {
+            let z = tc[i];
+            if (z.id === props.id) {
+              z.d.push(new Folder(ti, props.name+ti))
+            }
+          }
+          props.setConts(tc);
+        }
+      }>
+        <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="9" height="9" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+      </button>
+      <button className="topdrawerOptBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+          <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+        </svg>
+      </button>
     </section>
   );
 }
 function ContainerArea(props) {
-  let c = [];
-  for(let i=0; i < props.conts; i++) {
-    c.push(<Containers key={i} no={i} />);
+  let c = [], i = 0;
+  for(i=0; i<props.conts.length; i++) {
+    let z = props.conts[i];
+    c.push(<ContainersHead key={i} id={z.id} name={z.n} conts={props.conts} setConts={props.setConts} />);
   }
 
   return (
@@ -58,7 +96,7 @@ function Left(props) {
   return (
     <div className="left" style={{left: styleL+'%'}}>
       <Options conts={conts} setConts={setConts} styleL={styleL} setStyleL={setStyleL} styleR={props.styleR} setStyleR={props.setStyleR} />
-      <ContainerArea conts={conts} />
+      <ContainerArea conts={conts} setConts={setConts} />
     </div>
   );
 }
@@ -108,14 +146,13 @@ function formatting(start, middle, end, html, ind) {
   }else {
     formatted += end;
   }
-  console.log(end)
   //console.log(formatted, "\n\n\n", middle, "\n\n\n", end);
   return (formatted);
 }
 function Right(props) {
 
   useEffect(()=> {
-    let sel, selctedTxt = {}, ele = document.querySelector("#right>section"), eleHtml, ind, timeout = false;
+    /*let sel, selctedTxt = {}, ele = document.querySelector("#right>section"), eleHtml, ind, timeout = false;
 
     document.addEventListener('selectionchange', () => {
       clearTimeout(timeout);
@@ -142,7 +179,7 @@ function Right(props) {
         selctedTxt.ele.innerHTML = eleHtml.slice(0, ind) + replace + eleHtml.slice(selctedTxt.txt.length+ind);
       }
 
-    });
+    });*/
   });
 
   return (

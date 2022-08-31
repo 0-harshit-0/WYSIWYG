@@ -11,7 +11,7 @@
   position: relative;
 
   display: grid;
-  grid-template-rows: .1fr .06fr 1fr;
+  grid-template-rows: .1fr .1fr 1fr;
   align-items: start;
 
   background: var(--dbg);
@@ -28,19 +28,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
 }
 .lefthovers {
   transition: 0.3s ease;
   color: inherit;
+  padding: 0;
+  margin-inline-start: 2%;
 }
 .lefthovers:hover {
   color: black;
 }
-/*https://iconmonstr.com/arrow-31-svg/*/
 .leftname {
   flex: 1;
 
-  font-size: .7rem;
+  font-size: .8rem;
   background: transparent;
   outline: none;
   border: none;
@@ -49,9 +52,20 @@
 .leftcontainerArea {
   grid-row: 3 / 4;
 
-  border: solid;
   height: 100%;
+  overflow-y: auto;
+  padding-inline-end: 4%;
 }
+.containershead {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 0.7rem;
+}
+.containershead > strong {
+  flex: 1;
+}
+
 
 
 .right {
