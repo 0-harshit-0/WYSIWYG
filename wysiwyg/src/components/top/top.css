@@ -4,7 +4,7 @@
   position: relative;
   color: var(--grey);
 }
-
+/* --------------menu ---------------- */
 .topMenu {
   z-index: 2;
   position: relative;
@@ -25,6 +25,7 @@
   color: black;
 }
 
+/*  --------------------- searcth-------------- */
 .topSearch {
   flex: 1;
 
@@ -40,6 +41,7 @@
   border-bottom: solid 1px;
 }
 
+/* ---------------invite ------------------ */
 .topinviteBtn {
   display: flex;
   align-items: center;
@@ -52,12 +54,82 @@
   margin-inline-end: 5px;
 }
 
+/* ------------------- user icon options------------------------- */
+.topuserOptionsCont {
+  position: relative;
+}
+.topuserOptions {
+  position: absolute;
+  left: calc(100% - 190px);
+
+  display: none;
+  flex-direction: column;
+
+  padding: 20%;
+  width: 180px;
+  background: var(--bg);
+  font-size: 0.7rem;
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);
+}
+.topuserOptions > hr {
+  margin-block: 5%;
+  border:  none;
+  border-bottom: solid 1px lightgrey;
+}
+
+.topuserOptions > section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 4%;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+}
+.topuserOptions > section > button {
+  padding: 0;
+}
+.topuserOptions > section:hover {
+  background: var(--dbg);
+}
+
+.topuserOptions input[type="checkbox"] {
+  display: none;
+}
+
+.endi {
+  position: relative;
+  background: var(--grey);
+  width: 30px;
+  height: 13px;
+  border-radius: 20px;
+  transition: 0.1s linear;
+}
+.endiEnabled {
+  background: #00c7ff;
+}
+.disabledI{
+  position: absolute;
+  top: 2px;
+  left: 5%;
+  height: 70%;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  background: rgba(255,255,255, 1);
+  backdrop-filter: blur(10px);
+  transition: 0.1s linear;
+}
+.enabledI {
+  left: 63%;
+}
+
 .topuserIconBtn > img {
   border-radius: 100%;
 }
 
 
-/* --------drawer--------- */
+/* -------------------------drawer---------------------- */
 .topDrawer {
   z-index: 1;
   position: absolute;
@@ -70,7 +142,7 @@
   background: var(--bg);
   margin-block-start: 10px;
   padding-inline: 15px;
-  /*box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
   transition: 0.3s ease;
 }
 .topdrawerBtn {

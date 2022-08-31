@@ -30,6 +30,9 @@ function Options(props) {
         }
       }>
         <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="11" height="11" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+        <span className="tooltiptext">
+          add folder
+        </span>
       </button>
 
       <button className="lefthovers slider" onClick={()=> {
@@ -39,6 +42,9 @@ function Options(props) {
       }}>
         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style={{transform: `rotate(${rotate}deg)`}} className="bi">
           <path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg>
+        <span className="tooltiptext">
+          open/close sidebar
+        </span>
       </button>
     </section>
   );
@@ -93,8 +99,11 @@ function ContainersHead(props) {
         }
       }>
         <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="9" height="9" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+        <span className="tooltiptext">
+          add folder
+        </span>
       </button>
-      <button className="topdrawerOptBtn" onClick={
+      <button className="lefthovers" onClick={
         ()=> {
           let ll = props.ll;
           ll.addValues({file:"somemore.txt", content:txt});
@@ -105,6 +114,9 @@ function ContainersHead(props) {
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
           <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
         </svg>
+        <span className="tooltiptext">
+          add file
+        </span>
       </button>
     </section>
   );

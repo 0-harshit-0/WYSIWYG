@@ -6,6 +6,39 @@
   overflow-y: hidden;
 }
 
+
+/* Tooltip text */
+.tooltiptext {
+  display: none;
+  width: max-content;
+  background-color: var(--grey);
+  color: #fff;
+  text-align: center;
+  font-size: .6rem;
+  padding-block: 5px;
+  padding-inline: 10px;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--grey) transparent transparent transparent;
+}
+button:hover .tooltiptext {
+  display: initial;
+}
 .left {
   float: left;
   position: relative;
@@ -30,6 +63,8 @@
   justify-content: space-between;
 }
 .lefthovers {
+  position: relative;
+
   transition: 0.3s ease;
   color: inherit;
   padding: 0;
@@ -46,12 +81,14 @@
   outline: none;
   border: none;
 }
+.addfolder {
+  margin-inline-end: 3px;
+}
 
 .leftcontainerArea {
   grid-row: 3 / 4;
 
   height: 100%;
-  overflow-y: auto;
   padding-inline-end: 2%;
   box-shadow: 0 -1px 1px rgba(0, 0, 0, .1);
 }

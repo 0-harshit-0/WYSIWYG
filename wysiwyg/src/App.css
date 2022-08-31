@@ -90,6 +90,7 @@ button {
   cursor: pointer;
   background: transparent;
   border: none;
+  color: inherit;
 }
 .bi {
   transition: 0.3s ease;

@@ -2,6 +2,48 @@ import { useState } from 'react';
 import './top.css';
 
 
+function TopUserOptions() {
+  const [optDisplay, setoptDisplay] = useState("none");
+  const [drag, setDrag] = useState(false);
+
+  return(
+    <section className="topuserOptionsCont">
+      <button className="topuserIconBtn" onClick={()=> {
+        setoptDisplay(optDisplay === "none" ? "flex": "none");
+      }}>
+        <img src={require('./unnamed.png')} alt="user" loading="lazy" decoding="sync" />
+      </button>
+      <div className="topuserOptions" style={{display: optDisplay}}>
+        <section>
+          <span>Dark Mode</span>
+          <button className={"endi " + (drag ? "endiEnabled" : "")} onClick={
+            (e)=> {
+              document.querySelector("#darkmode").click();
+              setDrag(drag ? false : true);
+            }
+          }>
+            <i className={"disabledI " + (drag ? "enabledI" : "")}></i>
+          </button>
+          <input type="checkbox" id='darkmode' />
+        </section>
+        <section>
+          <button>Profile</button>
+        </section>
+        <hr />
+        <section>
+          <button>What's New</button>
+        </section>
+        <section>
+          <button>Send Feedback</button>
+        </section>
+        <hr />
+        <section>
+          <button>Log Out</button>
+        </section>
+      </div>
+    </section>
+  );
+}
 function TopMenu(props) {
   return(
     <div className="topMenu">
@@ -29,11 +71,7 @@ function TopMenu(props) {
         </svg>
       </button>
       
-      <section>
-        <button className="topuserIconBtn">
-          <img src={require('./unnamed.png')} alt="user" loading="lazy" decoding="sync" />
-        </button>
-      </section>
+      <TopUserOptions />
     </div>
   );
 }
