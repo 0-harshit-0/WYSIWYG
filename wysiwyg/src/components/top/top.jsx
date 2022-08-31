@@ -4,7 +4,7 @@ import './top.css';
 
 function TopMenu(props) {
   return(
-    <section className="topMenu">
+    <div className="topMenu">
       <button onClick={()=> {props.setDrawerTop(props.drawerTop > 30 ? 30 : 80)}} className="menuIconBtn tophovers">
         <svg viewBox="0 0 100 80" width="20" height="20" fill="currentColor">
           <rect y="10" width="100" height="10"></rect>
@@ -29,10 +29,12 @@ function TopMenu(props) {
         </svg>
       </button>
       
-      <button className="topuserIconBtn">
-        <img src={require('./unnamed.png')} alt="user" loading="lazy" decoding="sync" />
-      </button>
-    </section>
+      <section>
+        <button className="topuserIconBtn">
+          <img src={require('./unnamed.png')} alt="user" loading="lazy" decoding="sync" />
+        </button>
+      </section>
+    </div>
   );
 }
 

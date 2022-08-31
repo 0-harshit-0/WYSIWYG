@@ -28,8 +28,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
 }
 .lefthovers {
   transition: 0.3s ease;
@@ -54,16 +52,49 @@
 
   height: 100%;
   overflow-y: auto;
-  padding-inline-end: 4%;
+  padding-inline-end: 2%;
+  box-shadow: 0 -1px 1px rgba(0, 0, 0, .1);
 }
-.containershead {
+
+.containers {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 
   font-size: 0.7rem;
 }
-.containershead > strong {
+.containers * {
+  cursor: pointer;
+}
+.hiddenConts {
+  display: none;
+}
+.activeConts {
+  background: rgba(220, 220, 220, 1);
+}
+
+.containershead {
+  display: flex;
+  justify-content: space-between;
+}
+.containershead .containerArrow {
   flex: 1;
+
+  display: flex;
+  align-items: center;
+  gap: 2%;
+  color: inherit;
+
+}
+
+.containersitems {
+  margin-inline-start: 7%;
+}
+.containersitems button {
+  text-align: left;
+  width: 100%;
+}
+.containersitems * {
+  color: inherit;
 }
 
 
@@ -80,25 +111,6 @@
   transition: 0.3s ease;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background: #ccc;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 
 h1, h2 {
   font-weight: lighter;

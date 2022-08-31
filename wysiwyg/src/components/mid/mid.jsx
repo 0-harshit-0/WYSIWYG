@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react';
 import './mid.css';
-import {Folder} from '../../DS/ug.js';
+import {LinkedList} from '../../DS/ug.js';
 
+const txt = `<section>
+<h1>WYSIWYG Editor</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla <strong>pariatur.</strong> Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+</section>`
 
 function Options(props) {
   const [rotate, setRotate] = useState(180);
@@ -14,7 +24,7 @@ function Options(props) {
       <button className="lefthovers addfolder" onClick={
         () => {
           let tc = [...props.conts];
-          tc.push(new Folder(tc.length, fn??"collection"));
+          tc.push(new LinkedList(tc.length, fn??"collection "+tc.length, []));
           document.querySelector("#leftname").value = "";
           props.setConts(tc);
         }
@@ -36,38 +46,62 @@ function Options(props) {
 
 
 
-function ContainersItems() {}
+function ContainersItems(props) {
+  const [activeConts, setActiveConts] = useState('');
+
+  return(
+    <>
+    <section className={activeConts+" containersitems "+props.itemDisplay}>
+      {
+        <button/* onClick={
+          ()=> {
+            setActiveConts(activeConts === "" ? "activeConts" : "");
+          }
+        }*/>
+          <strong>{props.file}</strong>
+        </button>
+      }
+    </section>
+    </>
+  );
+}
 function ContainersHead(props) {
-  const [rotate, setRotate] = useState(0);
+  const [rotate, setRotate] = useState(180);
+  const [activeConts, setActiveConts] = useState('');
 
   return (
-    <section className="containershead">
-      <button onClick={
-        ()=> {
+    <section className={activeConts+" containershead"}>
+      <button className="containerArrow" onClick={
+        () => {
           setRotate(rotate === 180 ? 0 : 180);
+          props.setItemDisplay(props.itemDisplay === "" ? "hiddenConts" : "");
+          //setActiveConts(activeConts === "" ? "activeConts" : "");
         }
       }>
         <svg style={{transform: `rotate(${rotate}deg)`}} className="bi" width="6" height="6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M23.245 4l-11.245 14.374-11.219-14.374-.781.619 12 15.381 12-15.391-.755-.609z"/></svg>
+        <strong>{props.name}</strong>
+        
       </button>
-
-      <strong>{props.name}</strong>
 
       <button className="lefthovers addfolder" onClick={
         () => {
-          let ti = props.id+.1;
-          let tc = [...props.conts];
-          for (var i = 0; i < tc.length; i++) {
-            let z = tc[i];
-            if (z.id === props.id) {
-              z.d.push(new Folder(ti, props.name+ti))
-            }
-          }
-          props.setConts(tc);
+          let ll = props.ll;
+          let ti = props.id+"."+ll.length;
+          ll.add(ti, new LinkedList(ti, props.name+"."+ll.length, []));
+
+          props.setConts([...props.conts]);
         }
       }>
         <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="9" height="9" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
       </button>
-      <button className="topdrawerOptBtn">
+      <button className="topdrawerOptBtn" onClick={
+        ()=> {
+          let ll = props.ll;
+          ll.addValues({file:"somemore.txt", content:txt});
+          
+          props.setConts([...props.conts]);
+        }
+      }>
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
           <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
         </svg>
@@ -75,11 +109,34 @@ function ContainersHead(props) {
     </section>
   );
 }
+
+function Containers(props) {
+  const [itemDisplay, setItemDisplay] = useState("");
+
+  let id = props.ll.head.id;
+  let name = props.ll.head.d;
+  let data = props.ll.head.v;
+
+  let curr = props.ll.head, sub = [];
+  while (curr.next !== null) {
+    curr = curr.next;
+    let z = curr.d.head;
+    sub.push(<Containers key={z.id} class={itemDisplay} ll={curr.d} conts={props.conts} setConts={props.setConts} />);
+  }
+
+  return (
+    <div className={"containers "+props.class??""} style={{paddingInlineStart: (id+"").split(".").length*5??0+"%"}}>
+      <ContainersHead ll={props.ll} id={id} name={name} conts={props.conts} setConts={props.setConts} itemDisplay={itemDisplay} setItemDisplay={setItemDisplay} />
+      {data.map((z, i) => <ContainersItems key={i} itemDisplay={itemDisplay} file={z.file} />)}
+      {sub}
+    </div>
+  );
+}
+
 function ContainerArea(props) {
   let c = [], i = 0;
-  for(i=0; i<props.conts.length; i++) {
-    let z = props.conts[i];
-    c.push(<ContainersHead key={i} id={z.id} name={z.n} conts={props.conts} setConts={props.setConts} />);
+  for(i=0; i < props.conts.length; i++) {
+    c.push(<Containers key={i} ll={props.conts[i]} conts={props.conts} setConts={props.setConts} />);
   }
 
   return (
@@ -124,7 +181,7 @@ function TextFormat(props) {
     </template>
   );
 }
-function formatting(start, middle, end, html, ind) {
+/*function formatting(start, middle, end, html, ind) {
   let formatted = "";
   if (start.endsWith("<strong>")) {
     formatted += start.slice(0, start.length-8);
@@ -133,13 +190,13 @@ function formatting(start, middle, end, html, ind) {
   }
 
   formatted += middle;
-  /*if (html.includes("<strong>", ind) && html.includes("</strong>", ind)) {
+  if (html.includes("<strong>", ind) && html.includes("</strong>", ind)) {
     formatted += end.slice(17);
   }else if (html.includes("</strong>", ind)) {
     formatted += end.slice(9);
   }else if (html.includes("<strong>", ind)) {
     formatted += end.slice(8);
-  }*/
+  }
 
   if (!end.startsWith("<strong>") && (end.slice(0, 7).includes("<") || end.slice(0, 7).includes(">"))) {
     formatted += end.slice(17);
@@ -148,7 +205,7 @@ function formatting(start, middle, end, html, ind) {
   }
   //console.log(formatted, "\n\n\n", middle, "\n\n\n", end);
   return (formatted);
-}
+}*/
 function Right(props) {
 
   useEffect(()=> {
