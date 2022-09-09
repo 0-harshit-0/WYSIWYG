@@ -1,7 +1,8 @@
 
 class Node {
-	constructor(id, data, value=[]) {
+	constructor(id, name="", data=null, value=[]) {
 		this.id = id;
+		this.n = name;
 		this.d = data;
 		this.v = value;
 		this.next = null;
@@ -10,8 +11,8 @@ class Node {
 }
 
 class LinkedList {
-	constructor(id, name="collection", data=[]) {
-		this.head = new Node(id, name, data);
+	constructor(id, name="collection", data=null, value=[]) {
+		this.head = new Node(id, name, data, value);
 		this.length = 1;
 	}
 	get(n = 0) { //by index
@@ -66,19 +67,4 @@ class LinkedList {
 }
 
 
-class Folder {
-	constructor(id, name="collection", data=[], subfolders=[]) {
-		this.id = id;
-		this.n = name;
-		this.d = data;
-		this.sub = subfolders;
-	}
-	addDataFiles(files) {
-		this.d.push(files);
-	}
-	addSubfolders(folder) {
-		this.sub.push(folder);
-	}
-}
-
-export {Folder, LinkedList};
+export {Node, LinkedList};

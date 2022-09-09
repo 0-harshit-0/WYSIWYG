@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateList } from './topSlice';
+
 import './top.css';
 
 
@@ -77,40 +80,27 @@ function TopMenu(props) {
 }
 
 function TopDrawerBtns(props) {
-  let c = props.active ? "topdrawerBtnActive" : "";
-  let l = [];
+  const {id, name, active} = props.obj;
+  let c = active ? "topdrawerBtnActive" : "";
+
+  const dispatch = useDispatch();
 
   return (
     <button onClick=
     {
       () => {
-        props.list.forEach(z => {
-          if(z.name === props.name) {
-            z.active = true;
-          }else {
-            z.active = false;
-          }
-          l.push(z);
-        });
-        props.func(l);
+        dispatch(updateList(id));
       }
-    } className={c+" topdrawerBtn"}>{props.name}</button>
+    } className={c+" topdrawerBtn"}>{name}</button>
   );
 }
 function TopDrawer(props) {
-  const [drawerList, setDrawerList] = useState(
-    [
-      {name: 'All', active: true},
-      {name: 'Board', active: false},
-      {name: 'Graph', active: false},
-      {name: 'Recent', active: false},
-    ]
-  );
+  const drawerList = useSelector(state => state.drawerList);
 
   return(
     <section className="topDrawer" style={{top: props.drawerTop+'%'}}>
       {
-        drawerList.map(x => {return <TopDrawerBtns key={x.name} name={x.name} active={x.active} list={drawerList} func={setDrawerList} />})
+        drawerList.map(x => {return <TopDrawerBtns key={x.name} obj={x} />})
       }
       <button className="topdrawerOptBtn">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { LinkedList } from '../../DS/ug.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateConts, updateContFiles, addConts } from './midSlice';
+
 import './mid.css';
-import {LinkedList} from '../../DS/ug.js';
 
 const txt = `<section>
 <h1>WYSIWYG Editor</h1>
@@ -16,6 +19,8 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 function Options(props) {
   const [rotate, setRotate] = useState(180);
   let fn = null;
+  const dispatch = useDispatch();
+  const conts = useSelector(state => state.conts);
 
   return(
     <section className="leftOptions">
@@ -23,10 +28,8 @@ function Options(props) {
 
       <button className="lefthovers addfolder" onClick={
         () => {
-          let tc = [...props.conts];
-          tc.push(new LinkedList(tc.length, fn??"collection "+tc.length, []));
+          dispatch(addConts(JSON.stringify(new LinkedList(conts.length, fn??"collection "+conts.length))));
           document.querySelector("#leftname").value = "";
-          props.setConts(tc);
         }
       }>
         <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="11" height="11" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
@@ -56,25 +59,18 @@ function ContainersItems(props) {
   const [activeConts, setActiveConts] = useState('');
 
   return(
-    <>
     <section className={activeConts+" containersitems "+props.itemDisplay}>
-      {
-        <button/* onClick={
-          ()=> {
-            setActiveConts(activeConts === "" ? "activeConts" : "");
-          }
-        }*/>
-          <strong>{props.file}</strong>
-        </button>
-      }
+      <button>
+        <strong>{props.file}</strong>
+      </button>
     </section>
-    </>
   );
 }
 function ContainersHead(props) {
   const [rotate, setRotate] = useState(180);
   const [activeConts, setActiveConts] = useState('');
 
+  const dispatch = useDispatch();
   return (
     <section className={activeConts+" containershead"}>
       <button className="containerArrow" onClick={
@@ -91,11 +87,14 @@ function ContainersHead(props) {
 
       <button className="lefthovers addfolder" onClick={
         () => {
-          let ll = props.ll;
+          let ll = props.ll
           let ti = props.id+"."+ll.length;
-          ll.add(ti, new LinkedList(ti, props.name+"."+ll.length, []));
-
-          props.setConts([...props.conts]);
+          dispatch(updateConts(
+            {
+              ti,
+              nll: JSON.stringify(new LinkedList(ti, props.name+"."+ll.length))
+            }
+          ));
         }
       }>
         <svg xmlns="http://www.w3.org/2000/svg" className="bi" fill="currentColor" width="9" height="9" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
@@ -105,10 +104,7 @@ function ContainersHead(props) {
       </button>
       <button className="lefthovers" onClick={
         ()=> {
-          let ll = props.ll;
-          ll.addValues({file:"somemore.txt", content:txt});
-          
-          props.setConts([...props.conts]);
+          dispatch(updateContFiles({id: props.id, file:"somemore.txt", content:txt}));
         }
       }>
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -126,29 +122,31 @@ function Containers(props) {
   const [itemDisplay, setItemDisplay] = useState("");
 
   let id = props.ll.head.id;
-  let name = props.ll.head.d;
+  let name = props.ll.head.n;
   let data = props.ll.head.v;
 
   let curr = props.ll.head, sub = [];
   while (curr.next !== null) {
     curr = curr.next;
     let z = curr.d.head;
-    sub.push(<Containers key={z.id} class={itemDisplay} ll={curr.d} conts={props.conts} setConts={props.setConts} />);
+    sub.push(<Containers key={z.id} class={itemDisplay} ll={curr.d} />);
   }
 
   return (
     <div className={"containers "+props.class??""} style={{paddingInlineStart: (id+"").split(".").length*5??0+"%"}}>
-      <ContainersHead ll={props.ll} id={id} name={name} conts={props.conts} setConts={props.setConts} itemDisplay={itemDisplay} setItemDisplay={setItemDisplay} />
-      {data.map((z, i) => <ContainersItems key={i} itemDisplay={itemDisplay} file={z.file} />)}
+      <ContainersHead ll={props.ll} id={id} name={name} itemDisplay={itemDisplay} setItemDisplay={setItemDisplay} />
+      {data.map((z,i) => <ContainersItems key={i} itemDisplay={itemDisplay} file={z.file} />)}
       {sub}
     </div>
   );
 }
 
-function ContainerArea(props) {
+function ContainerArea() {
   let c = [], i = 0;
-  for(i=0; i < props.conts.length; i++) {
-    c.push(<Containers key={i} ll={props.conts[i]} conts={props.conts} setConts={props.setConts} />);
+  const conts = useSelector(state => state.conts);
+
+  for(i=0; i < conts.length; i++) {
+    c.push(<Containers key={i} ll={conts[i]} />);
   }
 
   return (
@@ -159,13 +157,12 @@ function ContainerArea(props) {
 }
 
 function Left(props) {
-  const [conts, setConts] = useState([]);
   const [styleL, setStyleL] = useState(0);
 
   return (
     <div className="left" style={{left: styleL+'%'}}>
-      <Options conts={conts} setConts={setConts} styleL={styleL} setStyleL={setStyleL} styleR={props.styleR} setStyleR={props.setStyleR} />
-      <ContainerArea conts={conts} setConts={setConts} />
+      <Options styleL={styleL} setStyleL={setStyleL} styleR={props.styleR} setStyleR={props.setStyleR} />
+      <ContainerArea />
     </div>
   );
 }
